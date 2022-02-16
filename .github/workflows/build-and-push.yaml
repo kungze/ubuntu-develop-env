@@ -32,14 +32,12 @@ jobs:
             registry.aliyuncs.com/kungze/ubuntu-develop-env
 
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1.12.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Login to aliyun registry
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1.12.0
         with:
           registry: registry.aliyuncs.com
@@ -50,6 +48,6 @@ jobs:
         uses: docker/build-push-action@v2.9.0
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
