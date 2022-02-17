@@ -13,7 +13,7 @@ You can specify the golang version by arg `GOLANG_VERSION`, the default value is
 
     docker build --build-arg GOLANG_VERSION=1.17.5 -t ubuntu-develop-env:latest .
 
-The `docker-ce-cli` and `kubectl` will be auto installed.
+The `docker-ce-cli`, `kubectl` and `helm` will be auto installed.
 
 
 ## deploy

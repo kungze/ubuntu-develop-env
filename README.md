@@ -13,7 +13,7 @@
 
     docker build --build-arg GOLANG_VERSION=1.17.5 -t ubuntu-develop-env:latest .
 
-编译好的镜像安装了一下常用工具，包括 docker-ce-cli 和 kubectl 等
+编译好的镜像安装了一些常用工具，包括 docker-ce-cli, kubectl, helm 等
 
 
 ## 部署
