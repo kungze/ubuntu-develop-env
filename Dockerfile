@@ -35,6 +35,10 @@ RUN curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm-v$
     && rm -rf linux-amd64 \
     && rm -rf helm-v${HELM_VERSION}-linux-amd64.tar.gz
 
+RUN git clone -b kungze https://github.com/kungze/readme-generator-for-helm.git /opt/readme-generator-for-helm \
+    && npm install -g /opt/readme-generator-for-helm \
+    && ln -s /opt/readme-generator-for-helm/bin/index.js /usr/bin/readme-generator
+
 COPY run_sshd.sh run_sshd
 RUN chmod +x run_sshd
 
