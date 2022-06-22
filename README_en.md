@@ -6,7 +6,6 @@
 
 Rapidly set up a golang and python environment for develop and debug.
 
-
 ## build
 
 You can specify the golang version by arg `GOLANG_VERSION`, the default value is 1.17.6.
@@ -14,7 +13,6 @@ You can specify the golang version by arg `GOLANG_VERSION`, the default value is
     docker build --build-arg GOLANG_VERSION=1.17.5 -t ubuntu-develop-env:latest .
 
 The `docker-ce-cli`, `kubectl` and `helm` will be auto installed.
-
 
 ## deploy
 
@@ -32,7 +30,6 @@ Let's see the features this image support before we run the image:
 
 * The `sshd` is the main process, listen on port 22. The image will auto create a user for container, for default, username: `ubuntu`, usergroup: `ubuntu`, password: `ChangeMe`. You can customize them by the follow envs: `UEW_USER`, `NEW_GROUP`, `NEW_PASSWORD`, such as: `-e NEW_USER=user -e NEW_GROU=group -e NEW_PASSWORD=password`.
 * You can mount the host's docker socket to container when you boot a container by the image that make you can operate the host's container in the container. such as: `-v /var/run/docker.sock:/var/run/docker.sock`
-* The image can auto generate `kubeconfig` file, the related envs: `KUBE_CLUSTER_NAME`, `KUBE_CLUSTER_API_SERVER`, `KUBE_CLUSTER_CA_DATA`, `KUBE_USER_NAME`, `KUBE_USER_PASSWORD`, `KUBE_USER_CLIENT_CA_DATA`, `KUBE_USER_CLIENT_KEY_DATA`.
 
 Create a container:
 
