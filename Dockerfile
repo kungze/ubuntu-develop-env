@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-ARG GOLANG_VERSION=1.17.6
-ARG HELM_VERSION=3.8.0
+ARG GOLANG_VERSION=1.18.3
+ARG HELM_VERSION=3.9.0
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -41,9 +41,6 @@ RUN git clone -b kungze https://github.com/kungze/readme-generator-for-helm.git 
 
 COPY run_sshd.sh run_sshd
 RUN chmod +x run_sshd
-
-COPY kube_config.sh /usr/bin/kube_config
-RUN chmod +x /usr/bin/kube_config
 
 VOLUME /home
 EXPOSE 22
