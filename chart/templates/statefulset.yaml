@@ -1,0 +1,68 @@
+{{/*
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/}}
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ printf "%s-statusfulset" .Release.Name | quote }}
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    matchLabels:
+      app.kungze.io/component: {{ .Release.Name | quote }}
+  serviceName: {{ printf "%s-svc" .Release.Name | quote }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kungze.io/component: {{ .Release.Name | quote }}
+    spec:
+      containers:
+      - name: {{ printf "%s-container" .Release.Name | quote }}
+        image: {{ printf "%s/ubuntu-develop-env:%s" .Values.imageRegistry .Values.tag | quote }}
+        env:
+        - name: NEW_GROUP
+          value: {{ .Values.containerConf.userGroup | quote }}
+        - name: NEW_USER
+          value: {{ .Values.containerConf.userName | quote }}
+        - name: USER_PASSWORD
+          value: {{ .Values.containerConf.userPassword | quote }}
+        volumeMounts:
+          - mountPath: /home
+            name: home-dir
+        ports:
+        - containerPort: 22
+      {{- if .Values.createServiceAccount }}
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "sh"
+                - "-c"
+                - >
+                  env|grep KUBERNETES | xargs -I {} echo export {} >> /etc/profile
+      serviceAccountName: {{ .Release.Name | quote }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: home-dir
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- if not (empty .Values.homeStorageClass) }}
+        storageClassName: {{ .Values.homeStorageClass | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.homeStorageSize }}
