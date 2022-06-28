@@ -1,0 +1,45 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Default values for keystone.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+---
+## @section Global parameters
+## @param imageRegistry [t#imageRegistry] Container image registry
+imageRegistry: "registry.aliyuncs.com/kungze"
+## @param tag The container image tag
+tag: "latest"
+## @param homeStorageClass The storagaclass name used to claim volume for container's home dirtctory.
+homeStorageClass: ""
+## @param homeStorageSize The storage size of container's home directory
+homeStorageSize: "10Gi"
+## @param createServiceAccount Where or not create a serviceaccount for pod.
+createServiceAccount: true
+
+## @section Host Parameters
+## @param hostConf.nodePort [t#nodePort] The nodePort of k8s service, you can login the environment by the port use ssh client.
+## @param hostConf.homeDirPath [t#hostDirPath] The host node's directory path, the directory will mount to the main container as the container's home directory.
+hostConf:
+  nodePort: 30022
+  homeDirPath: /data/ubuntu
+
+## @section Container parameters
+## @param containerConf.userName The environment's user name, it will be auto created when pod start, you can use this user to login the environment.
+## @param containerConf.userPassword The above's user password.
+## @param containerConf.userGroup The environment's user group, it will be auto created when pod start.
+containerConf:
+  userName: ubuntu
+  userPassword: ChangeMe
+  userGroup: ubuntu

@@ -1,0 +1,11 @@
+CHART NAME: {{ .Chart.Name }}
+CHART VERSION: {{ .Chart.Version }}
+APP VERSION: {{ .Chart.AppVersion }}
+
+** Please be patient while the chart is being deployed **
+
+You can login the development environment by ssh.
+
+    ssh <k8s node address> -p {{ .Values.hostConf.nodePort }}
+
+ssh user/password are {{ .Values.containerConf.userName }}/{{ .Values.containerConf.userPassword }}

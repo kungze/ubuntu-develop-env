@@ -1,0 +1,79 @@
+{
+    "title": "Chart Values",
+    "type": "object",
+    "properties": {
+        "imageRegistry": {
+            "form": true,
+            "type": "string",
+            "description": "Container image registry",
+            "title": "imageRegistry",
+            "default": "registry.aliyuncs.com/kungze"
+        },
+        "tag": {
+            "form": true,
+            "type": "string",
+            "description": "The container image tag",
+            "default": "latest"
+        },
+        "homeStorageClass": {
+            "form": true,
+            "type": "string",
+            "description": "The storagaclass name used to claim volume for container's home dirtctory.",
+            "default": ""
+        },
+        "homeStorageSize": {
+            "form": true,
+            "type": "string",
+            "description": "The storage size of container's home directory",
+            "default": "10Gi"
+        },
+        "createServiceAccount": {
+            "form": true,
+            "type": "boolean",
+            "description": "Where or not create a serviceaccount for the pod.",
+            "default": true
+        },
+        "hostConf": {
+            "type": "object",
+            "properties": {
+                "nodePort": {
+                    "form": true,
+                    "type": "number",
+                    "description": "The nodePort of k8s service, you can login the environment by the port use ssh client.",
+                    "title": "nodePort",
+                    "default": 30022
+                },
+                "homeDirPath": {
+                    "form": true,
+                    "type": "string",
+                    "description": "The host node's directory path, the directory will mount to the main container as the container's home directory.",
+                    "title": "hostDirPath",
+                    "default": "/data/ubuntu"
+                }
+            }
+        },
+        "containerConf": {
+            "type": "object",
+            "properties": {
+                "userName": {
+                    "form": true,
+                    "type": "string",
+                    "description": "The environment's user name, it will be auto created when pod start, you can use this user to login the environment.",
+                    "default": "ubuntu"
+                },
+                "userPassword": {
+                    "form": true,
+                    "type": "string",
+                    "description": "The above's user password.",
+                    "default": "ChangeMe"
+                },
+                "userGroup": {
+                    "form": true,
+                    "type": "string",
+                    "description": "The environment's user group, it will be auto created when pod start.",
+                    "default": "ubuntu"
+                }
+            }
+        }
+    }
+}
