@@ -1,9 +1,6 @@
 name: Release Charts
 
-on:
-  push:
-    branches:
-      - main
+on: pull_request
 
 jobs:
   release:
@@ -14,24 +11,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Install Helm
         uses: azure/setup-helm@v1
 
       - name: Install helm-push plugin
         run: helm plugin install https://github.com/chartmuseum/helm-push
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Packate chart
+        run:
+          helm package chart/
 
       - name: Push chart packages to kungze.net
         shell: bash
         run: |
-          if [ -d ".cr-release-packages/" ]; then
-            find .cr-release-packages/ -name "*.tgz" | xargs -I {} helm cm-push {} ${{ secrets.KUNGZE_CM_URL }} --username ${{ secrets.KUNGZE_CM_USER }} --password ${{ secrets.KUNGZE_CM_PASSWORD }} --force
-          fi
+          find *.tgz | xargs -I {} helm cm-push {} ${{ secrets.KUNGZE_CM_URL }} --username ${{ secrets.KUNGZE_CM_USER }} --password ${{ secrets.KUNGZE_CM_PASSWORD }} --force
