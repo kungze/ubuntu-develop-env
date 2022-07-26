@@ -5,7 +5,7 @@ ARG HELM_VERSION=3.9.0
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt install -y iputils-arping iputils-ping iputils-tracepath git vim make iproute2 sudo apt-transport-https ca-certificates curl gnupg-agent software-properties-common wget python3 gcc python3-dev nodejs npm \
+    && apt install -y iputils-arping iputils-ping iputils-tracepath git vim make iproute2 sudo apt-transport-https ca-certificates curl gnupg-agent software-properties-common wget python3 gcc python3-dev nodejs npm python3-openstackclient \
     && curl https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add - \
     && curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - \
     && add-apt-repository "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" \
