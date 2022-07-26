@@ -46,9 +46,9 @@ Login container by ssh:
 
 ### helm chart
 
-    helm repo add kungze https://kungze.github.io/charts
-    helm install dev-debug-env kungze k8s-debug-env
+In k8s environment, you can deploy the image by helm:
 
-For more details please refer to the [document](https://github.com/kungze/charts/tree/main/charts/k8s-debug-env).
+    helm repo add kungze https://charts.kungze.net
+    helm install debug-env kungze ubuntu-develop-env
 
-**Tip:** You can use vscode's [remote ssh](https://code.visualstudio.com/docs/remote/ssh) extension to connect the container for develop and debug.
+For more details please refer to the [document](chart/README.md).

@@ -46,7 +46,28 @@ Dockerhub:
 
 ### 使用 helm 部署
 
-    helm repo add kungze https://kungze.github.io/charts
-    helm install dev-debug-env kungze k8s-debug-env
+在 k8s 环境中可以使用 helm 启动该镜像
 
-更多细节请参照[文档](https://github.com/kungze/charts/tree/main/charts/k8s-debug-env)
+    helm repo add kungze https://charts.kungze.net
+    helm install debug-env kungze ubuntu-develop-env
+
+部署完成后会创建一个 statefulset 和一个 NodePort 类型的 service （默认端口为 30022），另外还会把 pod 对应的
+主容器的 /home 目录映射到属主机（属主机对应目录为 /data/ubuntu）当然也可以通过设置 homeStorageClass 参数为容器
+的 /home 目录申请一块持久化存储，这种操作会保证即使 pod 重启或者被删除其 /home 目录下的数据也会存在。
+
+可以通过下面的命令登录：
+
+  ```console
+  ssh user@<宿主机 IP> -p 30022
+  ```
+
+登录之后，还可以切换到 root 用户来执行 kubectl 命令
+
+  ```console
+  $ sudo su -
+  # kubectl get pods
+  NAME                       READY   STATUS    RESTARTS           AGE
+  debug-env-statusfulset-0   1/1     Running   1 (8d ago)         25d
+  ```
+
+更多细节请参照[文档](chart/README.md)
