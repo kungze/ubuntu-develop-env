@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: v2
 description: Deploy a out of the box environment in k8s cluster for development and debug
 name: ubuntu-develop-env
-version: 1.0.0
+version: 1.0.1
 home: https://kungze.github.io/documents/
 sources:
   - https://github.com/kungze/ubuntu-develop-env
