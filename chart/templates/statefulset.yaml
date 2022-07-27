@@ -55,14 +55,20 @@ spec:
                   env|grep KUBERNETES | xargs -I {} echo export {} >> /etc/profile
       serviceAccountName: {{ .Release.Name | quote }}
       {{- end }}
+  {{- if not (empty .Values.homeStorageClass) }}
   volumeClaimTemplates:
     - metadata:
         name: home-dir
       spec:
         accessModes: ["ReadWriteOnce"]
-        {{- if not (empty .Values.homeStorageClass) }}
         storageClassName: {{ .Values.homeStorageClass | quote }}
-        {{- end }}
         resources:
           requests:
             storage: {{ .Values.homeStorageSize }}
+  {{- else }}
+      volumes:
+        - name: home-dir
+          hostPath:
+            path: {{ printf "%s/%s/%s" .Values.hostConf.homeDirPath .Release.Namespace .Release.Name | quote }}
+            type: DirectoryOrCreate
+  {{- end }}
