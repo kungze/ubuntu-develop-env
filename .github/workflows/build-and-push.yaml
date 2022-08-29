@@ -1,5 +1,4 @@
 name: build-and-push
-
 on:
   push:
     tags:
@@ -7,7 +6,6 @@ on:
   pull_request:
     branches:
       - 'main'
-
 jobs:
   docker:
     runs-on: ubuntu-latest
