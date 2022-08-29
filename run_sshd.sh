@@ -17,12 +17,4 @@ if [ $(cat /etc/passwd|grep "^$NEW_USER:"|wc -l) -eq 0 ]; then
 	echo "$NEW_USER:$USER_PASSWORD" | chpasswd
 fi
 
-# Generate kube config file for specified user
-kube_config
-new_user_home=$(cat /etc/passwd|grep "^$NEW_USER"|awk -F':' '{print $(NF-1)}')
-if [ ! -f $new_user_home/.kube/config ]; then
-	cp -rf $HOME/.kube $new_user_home/
-	chown $NEW_USER:$NEW_GROUP $new_user_home/.kube -R
-fi
-
 exec sudo -S /usr/sbin/sshd -D
