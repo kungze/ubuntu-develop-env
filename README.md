@@ -67,7 +67,7 @@ Dockerhub:
   $ sudo su -
   # kubectl get pods
   NAME                       READY   STATUS    RESTARTS           AGE
-  debug-env-statusfulset-0   1/1     Running   1 (8d ago)         25d
+  debug-env-statefulset-0   1/1     Running   1 (8d ago)         25d
   ```
 
 更多细节请参照[文档](chart/README.md)

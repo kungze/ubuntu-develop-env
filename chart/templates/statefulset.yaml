@@ -16,7 +16,7 @@ limitations under the License.
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ printf "%s-statusfulset" .Release.Name | quote }}
+  name: {{ printf "%s-statefulset" .Release.Name | quote }}
   namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:
